@@ -89,8 +89,7 @@ AttributeList LineParser::parseAttr(const std::string &line, size_t &i)
             attr_val += line[i];
             i++;
         }
-        std::cout << attr_name << std::endl;
-        std::cout << attr_val << std::endl;
+
         list.attr_names.push_back(attr_name);
         list.attr_values.push_back(attr_val);
 

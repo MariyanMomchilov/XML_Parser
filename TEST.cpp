@@ -6,10 +6,12 @@
 #include "includes/IDFactory.hpp"
 #include "includes/LineParser.hpp"
 #include "includes/Generator.hpp"
-#include "IDFactory.cpp"
+#include "includes/Tree.hpp"
+#include "includes/Node.hpp"
+/*#include "IDFactory.cpp"
 #include "LineParser.cpp"
 #include "Generator.cpp"
-#include "Node.cpp"
+#include "Node.cpp"*/
 
 using namespace std;
 
@@ -35,7 +37,7 @@ TEST_CASE("Line parser")
     CHECK(tag.name == "person");
     CHECK(tag.attributes.attr_names.size() == 3);
     CHECK(tag.attributes.attr_names[0] == "id");
-    CHECK(tag.attributes.attr_values[0] == "\"0\"");
+    CHECK(tag.attributes.attr_values[0] == "0");
     CHECK(tag.attributes.attr_values[1] == "green");
 }
 TEST_CASE("TAGS processing")
@@ -46,14 +48,6 @@ TEST_CASE("TAGS processing")
     CHECK(LineParser::isLeafTag(line2) == false);
 }
 
-TEST_CASE("Generator")
-{
-    ifstream xmlfile("test.xml");
-    Node node = Generator::GenerateTree(xmlfile); //bachka wee
-
-    xmlfile.close();
-}
-
 TEST_CASE("Vector Content")
 {
     ifstream xmlfile("test.xml");
@@ -62,6 +56,26 @@ TEST_CASE("Vector Content")
     {
         cout << content[i] << endl;
     }
+}
+
+/*TEST_CASE("Generator and Node") legacy test
+{
+    ifstream xmlfile("test.xml");
+    Node node = Generator::TreeGenerator(xmlfile, 0); //bachka wee
+    Node result;
+    node.getChild("7", result);
+    CHECK(result.getTagName() == "animal");
+    xmlfile.close();
+}*/
+
+TEST_CASE("Generator, Node, XML Tree")
+{
+    ifstream xmlfile("test.xml");
+    Tree XMLtree = Generator::GenerateTree(xmlfile);
+    Node result = XMLtree.find("7");
+    CHECK(result.getTagName() == "animal");
+    ofstream xmlfileOUT("testOUT.xml");
+    xmlfileOUT << XMLtree;
 }
 int main()
 {
