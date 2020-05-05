@@ -7,7 +7,7 @@
 #include "includes/LineParser.hpp"
 #include "includes/Generator.hpp"
 #include "includes/Tree.hpp"
-#include "includes/Node.hpp"
+//#include "includes/Node.hpp"
 /*#include "IDFactory.cpp"
 #include "LineParser.cpp"
 #include "Generator.cpp"
@@ -72,10 +72,16 @@ TEST_CASE("Generator, Node, XML Tree")
 {
     ifstream xmlfile("test.xml");
     Tree XMLtree = Generator::GenerateTree(xmlfile);
-    Node result = XMLtree.find("7");
-    CHECK(result.getTagName() == "animal");
+    xmlfile.close();
+    XMLtree.select("7", "color");
+    XMLtree.select("80", "color");
+    XMLtree.set("7", "color", "blue");
+    XMLtree.deleteAttr("7", "id");
+    XMLtree.deleteAttr("7", "color");
     ofstream xmlfileOUT("testOUT.xml");
+    XMLtree.newchild("1", "personTest");
     xmlfileOUT << XMLtree;
+    xmlfileOUT.close();
 }
 int main()
 {

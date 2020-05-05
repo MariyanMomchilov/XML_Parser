@@ -6,7 +6,7 @@ class Tree
 {
 private:
     Node root;
-    //Node find(const std::string &id) const;
+    Node find(const std::string &id) const;
     friend std::ostream &operator<<(std::ostream &os, const Tree &tree);
 
 public:
@@ -15,7 +15,10 @@ public:
     Tree(const Tree &tree);
     Tree &operator=(const Tree &tree);
     ~Tree() = default;
-    Node find(const std::string &id) const; //premesti q private
+    void select(const std::string &id, const std::string &key) const;
+    void set(const std::string &id, const std::string &key, const std::string &value);
+    void deleteAttr(const std::string &id, const std::string &key);
+    void newchild(const std::string &id, const std::string &_tagname);
 };
 
 #endif
