@@ -4,6 +4,8 @@
 #include "AttributeList.hpp"
 #include <iostream>
 
+class SlashOperand;
+
 class Node
 {
 
@@ -27,6 +29,9 @@ public:
     bool operator!=(const Node &other) const;
     ~Node() = default;
 
+    size_t getChildSize() const;
+    Node getChild(int i) const;
+    std::string getText() const;
     std::string getTagName() const;
     void addChild(const Node &child);
     void appendText(const std::string &_text);
@@ -35,8 +40,8 @@ public:
     void setAttribute(const std::string &id, const std::string &key, const std::string &value);
     void deleteAttribute(const std::string &id, const std::string &key);
     void newChild(const std::string &id, const std::string &_tagname);
-
     void print(std::ostream &os, int spaces) const;
+    void updateChildList(const SlashOperand &operand, std::vector<Node> &list) const;
 };
 
 #endif

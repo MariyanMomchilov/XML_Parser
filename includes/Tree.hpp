@@ -15,6 +15,7 @@ public:
     Tree(const Tree &tree);
     Tree &operator=(const Tree &tree);
     ~Tree() = default;
+    Node getRoot() const;
     void select(const std::string &id, const std::string &key) const;
     void set(const std::string &id, const std::string &key, const std::string &value);
     void deleteAttr(const std::string &id, const std::string &key);

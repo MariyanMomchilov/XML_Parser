@@ -22,6 +22,11 @@ Tree &Tree::operator=(const Tree &tree)
     return *this;
 }
 
+Node Tree::getRoot() const
+{
+    return root;
+}
+
 void Tree::select(const std::string &id, const std::string &key) const
 {
     Node child;

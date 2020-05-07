@@ -9,7 +9,7 @@
         <job>Programmer</job>
         <address>Bulgaria</address>   
     </person>
-    <animal color="red">
+    <animal color="red">    
         Animal tag nested in people
         <lama id="1">
             <name>Alex</name>

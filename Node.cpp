@@ -1,4 +1,6 @@
 #include "includes/Node.hpp"
+#include "includes/SlashOperand.hpp"
+
 Node::Node(const std::string &_tagname, const AttributeList &_attribute_list, std::string _text) : tagname(_tagname), attribute_list(_attribute_list), text(_text) {}
 
 Node::Node(const Node &other)
@@ -43,6 +45,21 @@ int Node::_hasId() const
             return i;
     }
     return -1;
+}
+
+size_t Node::getChildSize() const
+{
+    return childs.size();
+}
+Node Node::getChild(int i) const
+{
+    if (i < childs.size())
+        return childs[i];
+}
+
+std::string Node::getText() const
+{
+    return text;
 }
 
 std::string Node::getTagName() const
@@ -204,5 +221,16 @@ void Node::print(std::ostream &os, int spaces) const
         }
         _addSpaces(os, spaces);
         os << "</" << tagname << ">" << '\n';
+    }
+}
+
+void Node::updateChildList(const SlashOperand &operand, std::vector<Node> &list) const
+{
+    for (int i = 0; i < childs.size(); i++)
+    {
+        if (childs[i].tagname == operand.getName() && operand.constraintsPassed(childs[i]))
+        {
+            list.push_back(childs[i]);
+        }
     }
 }

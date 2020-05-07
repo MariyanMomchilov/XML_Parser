@@ -1,17 +1,20 @@
 #define DOCTEST_CONFIG_IMPLEMENT
+#include "includes/doctest.h"
 #include <iostream>
 #include <fstream>
-#include <string>
-#include "includes/doctest.h"
 #include "includes/IDFactory.hpp"
 #include "includes/LineParser.hpp"
 #include "includes/Generator.hpp"
 #include "includes/Tree.hpp"
-//#include "includes/Node.hpp"
+#include "includes/SlashOperand.hpp"
+#include "includes/XpathQueries.hpp"
 /*#include "IDFactory.cpp"
 #include "LineParser.cpp"
 #include "Generator.cpp"
-#include "Node.cpp"*/
+#include "Tree.cpp"
+#include "Node.cpp"
+#include "SlashOperand.cpp"
+#include "XpathQueries.cpp"*/
 
 using namespace std;
 
@@ -58,16 +61,6 @@ TEST_CASE("Vector Content")
     }
 }
 
-/*TEST_CASE("Generator and Node") legacy test
-{
-    ifstream xmlfile("test.xml");
-    Node node = Generator::TreeGenerator(xmlfile, 0); //bachka wee
-    Node result;
-    node.getChild("7", result);
-    CHECK(result.getTagName() == "animal");
-    xmlfile.close();
-}*/
-
 TEST_CASE("Generator, Node, XML Tree")
 {
     ifstream xmlfile("test.xml");
@@ -83,6 +76,51 @@ TEST_CASE("Generator, Node, XML Tree")
     xmlfileOUT << XMLtree;
     xmlfileOUT.close();
 }
+
+/*TEST_CASE("SlashOperand")
+{
+    ifstream xmlfile("test.xml");
+    Tree XMLtree = Generator::GenerateTree(xmlfile);
+    xmlfile.close();
+    XMLtree.select("7", "color");
+    XMLtree.select("80", "color");
+    XMLtree.set("7", "color", "blue");
+    XMLtree.deleteAttr("7", "id");
+    XMLtree.deleteAttr("7", "color");
+    ofstream xmlfileOUT("testOUT.xml");
+    XMLtree.newchild("1", "personTest");
+    xmlfileOUT << XMLtree;
+    xmlfileOUT.close();
+
+    SlashOperand slashoperand1("person", -1, EqualOperand());
+    SlashOperand slashoperand2("name", -1, EqualOperand());
+
+    std::vector<Node> prevlist = {XMLtree.getRoot()};
+
+    std::vector<SlashOperand> operands = {slashoperand1, slashoperand2};
+    std::vector<Node> newlist = prevlist;
+    for (int i = 0; i < operands.size(); i++)
+    {
+        newlist = operands[i].constructList(newlist);
+        for (int k = 0; k < newlist.size(); k++)
+        {
+            std::cout << newlist[k].getTagName() << '\n';
+        }
+    }
+}*/
+
+TEST_CASE("QueryParser")
+{
+    cout << '\n'
+         << "\n";
+    ifstream xmlfile("test.xml");
+    Tree XMLtree = Generator::GenerateTree(xmlfile);
+    string query = "person(address=\"USA\")/name";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "animal/lama";
+    XpathQueries::getQuery(query, XMLtree);
+}
+
 int main()
 {
     doctest::Context().run();
