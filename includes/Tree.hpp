@@ -20,6 +20,9 @@ public:
     void set(const std::string &id, const std::string &key, const std::string &value);
     void deleteAttr(const std::string &id, const std::string &key);
     void newchild(const std::string &id, const std::string &_tagname);
+    void printText(const std::string &id) const;
+    void child(const std::string &id, size_t i) const;
+    void children(const std::string &id) const;
 };
 
 #endif

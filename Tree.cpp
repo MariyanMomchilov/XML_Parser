@@ -71,3 +71,32 @@ std::ostream &operator<<(std::ostream &os, const Tree &tree)
     tree.root.print(os, 0);
     return os;
 }
+
+void Tree::printText(const std::string &id) const
+{
+    Node resultNode;
+    root.getChild(id, resultNode);
+    std::cout << resultNode.tagname << "\'s text: " << resultNode.text << '\n';
+}
+
+void Tree::child(const std::string &id, size_t i) const
+{
+    Node resultNode;
+    root.getChild(id, resultNode);
+    std::cout << "Child node: " << resultNode.getChild(i).tagname << '\n';
+}
+
+void Tree::children(const std::string &id) const
+{
+    Node result;
+    root.getChild(id, result);
+    for (int i = 0; i < result.getChildSize(); i++)
+    {
+        AttributeList child_attr = result.getChild(i).getAttributes();
+        for (int k = 0; k < child_attr.attr_names.size(); k++)
+        {
+            std::cout << "(" << child_attr.attr_names[k] << ", " << child_attr.attr_values[k] << ")"
+                      << " ";
+        }
+    }
+}

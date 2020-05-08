@@ -105,15 +105,16 @@ void XpathQueries::getQuery(const std::string &id, std::string &query, const Tre
     {
         newlist = operands[i].constructList(newlist);
     }
-    std::cout << '\n'
-              << "[";
 
     int newlist_size = newlist.size();
+    if (newlist_size)
+        std::cout << '\n'
+                  << "[";
     int operands_size = operands.size();
     if (operands[operands_size - 1].hasAstr())
     {
         std::string astr = operands[operands_size - 1].getAstr();
-        for (int k = 0; k < newlist_size; k++) // TO DO printing LIST, TESTING and @query
+        for (int k = 0; k < newlist_size; k++)
         {
             if (k != newlist_size - 1)
                 std::cout << newlist[k].getAttrValue(astr) << ", ";
@@ -123,7 +124,7 @@ void XpathQueries::getQuery(const std::string &id, std::string &query, const Tre
     }
     else
     {
-        for (int k = 0; k < newlist_size; k++) // TO DO printing LIST, TESTING and @query
+        for (int k = 0; k < newlist_size; k++)
         {
             if (k != newlist_size - 1)
                 std::cout << newlist[k].getText() << ", ";

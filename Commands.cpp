@@ -178,22 +178,19 @@ void Commands::process(std::string &command)
         }
         else if (next_cmd == "children")
         {
-            std::cout << "To do" << '\n';
-            //std::string id = getNextCMD(command, i);
-            //XMLtree.children(id);
+            std::string id = getNextCMD(command, i);
+            XMLtree.children(id);
         }
         else if (next_cmd == "child")
         {
-            std::cout << "To do" << '\n';
-            //std::string id = getNextCMD(command, i);
-            //int n = std::stoi(getNextCMD(command, i));
-            //XMLtree.child(id, n);
+            std::string id = getNextCMD(command, i);
+            int n = std::stoi(getNextCMD(command, i));
+            XMLtree.child(id, n);
         }
         else if (next_cmd == "text")
         {
-            std::cout << "To do" << '\n';
-            //std::string id = getNextCMD(command, i);
-            //XMLtree.text(id);
+            std::string id = getNextCMD(command, i);
+            XMLtree.printText(id);
         }
         else if (next_cmd == "delete")
         {

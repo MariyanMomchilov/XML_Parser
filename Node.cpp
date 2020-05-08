@@ -55,6 +55,9 @@ Node Node::getChild(int i) const
 {
     if (i < childs.size())
         return childs[i];
+    else
+        std::cout << "Incorred index" << '\n';
+    return Node();
 }
 
 std::string Node::getText() const
@@ -125,6 +128,11 @@ void Node::getChild(const std::string &id, Node &result) const
     }
 }
 
+AttributeList Node::getAttributes() const
+{
+    return attribute_list;
+}
+
 void Node::setAttribute(const std::string &id, const std::string &key, const std::string &value)
 {
     if (attribute_list.attr_names[0] == "id" && attribute_list.attr_values[0] == id)
@@ -176,7 +184,7 @@ void Node::_printAttributes(std::ostream &os) const
 {
     if (attribute_list.attr_names.size() != 0)
         os << " ";
-    for (int k = 0; k < attribute_list.attr_names.size(); k++) //print attributes TO DO make this a function
+    for (int k = 0; k < attribute_list.attr_names.size(); k++)
     {
         if (k != attribute_list.attr_names.size() - 1)
             os << attribute_list.attr_names[k] << "=" << '\"' << attribute_list.attr_values[k] << '\"' << " ";
