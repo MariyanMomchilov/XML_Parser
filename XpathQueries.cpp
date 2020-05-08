@@ -1,5 +1,12 @@
 #include "includes/XpathQueries.hpp"
 
+bool XpathQueries::hasAsymbol(int index, const std::string &str)
+{
+    if (str[index] == '@')
+        return true;
+    return false;
+}
+
 std::vector<SlashOperand> XpathQueries::ParseQuery(std::string &query)
 {
     std::vector<SlashOperand> operands;
@@ -24,20 +31,50 @@ std::vector<SlashOperand> XpathQueries::ParseQuery(std::string &query)
             if (query[q_start_index] == '(')
             {
                 q_start_index++;
-                while (query[q_start_index] != '=')
+
+                if (XpathQueries::hasAsymbol(q_start_index, query)) // it will parse the @operator, the program assumes that it is the last operand
                 {
-                    equal_childname += query[q_start_index];
                     q_start_index++;
-                }
-                q_start_index++;
-                while (query[q_start_index] != ')')
-                {
-                    if (query[q_start_index] == '"')
+                    std::string astr = "";
+                    while (q_start_index < q_stop_index && query[q_start_index] != ')')
+                    {
+                        astr += query[q_start_index];
                         q_start_index++;
-                    equal_text += query[q_start_index];
+                    }
+                    q_start_index++;
+                    if (q_start_index < q_stop_index)
+                    {
+                        std::string index_str = "";
+                        while (query[q_start_index] != ']')
+                        {
+                            index_str += query[q_start_index];
+                            q_start_index++;
+                        }
+                        indexOperand = std::stoi(index_str);
+                    }
+                    operands.push_back(SlashOperand(operand_name, indexOperand, astr));
+                    return operands;
+                }
+                else
+                {
+                    while (query[q_start_index] != '=')
+                    {
+                        equal_childname += query[q_start_index];
+                        q_start_index++;
+                    }
+                    q_start_index++;
+                    while (query[q_start_index] != ')')
+                    {
+                        if (query[q_start_index] == '"')
+                        {
+                            q_start_index++;
+                            continue;
+                        }
+                        equal_text += query[q_start_index];
+                        q_start_index++;
+                    }
                     q_start_index++;
                 }
-                q_start_index++;
             }
             if (query[q_start_index] == '[')
             {
@@ -57,19 +94,41 @@ std::vector<SlashOperand> XpathQueries::ParseQuery(std::string &query)
     return operands;
 }
 
-void XpathQueries::getQuery(std::string &query, const Tree &XMLtree)
+void XpathQueries::getQuery(const std::string &id, std::string &query, const Tree &XMLtree)
 {
-    std::vector<Node> prevlist = {XMLtree.getRoot()};
+    Node target_node;
+    XMLtree.getRoot().getChild(id, target_node);
     std::vector<SlashOperand> operands = XpathQueries::ParseQuery(query);
-    std::vector<Node> newlist = prevlist;
+    std::vector<Node> newlist = {target_node};
+
     for (int i = 0; i < operands.size(); i++)
     {
         newlist = operands[i].constructList(newlist);
     }
     std::cout << '\n'
-              << "\n";
-    for (int k = 0; k < newlist.size(); k++) // TO DO printing LIST, TESTING and @query
+              << "[";
+
+    int newlist_size = newlist.size();
+    int operands_size = operands.size();
+    if (operands[operands_size - 1].hasAstr())
     {
-        std::cout << newlist[k].getTagName() << '\n';
+        std::string astr = operands[operands_size - 1].getAstr();
+        for (int k = 0; k < newlist_size; k++) // TO DO printing LIST, TESTING and @query
+        {
+            if (k != newlist_size - 1)
+                std::cout << newlist[k].getAttrValue(astr) << ", ";
+            else
+                std::cout << newlist[k].getAttrValue(astr) << "]" << '\n';
+        }
+    }
+    else
+    {
+        for (int k = 0; k < newlist_size; k++) // TO DO printing LIST, TESTING and @query
+        {
+            if (k != newlist_size - 1)
+                std::cout << newlist[k].getText() << ", ";
+            else
+                std::cout << newlist[k].getText() << "]" << '\n';
+        }
     }
 }

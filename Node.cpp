@@ -67,6 +67,18 @@ std::string Node::getTagName() const
     return tagname;
 }
 
+std::string Node::getAttrValue(const std::string &attr_name) const
+{
+    for (int i = 0; i < attribute_list.attr_names.size(); i++)
+    {
+        if (attribute_list.attr_names[i] == attr_name)
+        {
+            return attribute_list.attr_values[i];
+        }
+    }
+    return "";
+}
+
 void Node::addChild(const Node &child)
 {
     childs.push_back(child);
@@ -178,7 +190,7 @@ void Node::newChild(const std::string &id, const std::string &_tagname)
     if (attribute_list.attr_names[0] == "id" && attribute_list.attr_values[0] == id)
     {
         Node child_node;
-        child_node.tagname = tagname;
+        child_node.tagname = _tagname;
         child_node.attribute_list.attr_names.push_back("id");
         child_node.attribute_list.attr_values.push_back(attribute_list.attr_values[0] + "_0" + std::to_string(childs.size()));
         childs.push_back(child_node);
@@ -187,7 +199,7 @@ void Node::newChild(const std::string &id, const std::string &_tagname)
     }
     for (int i = 0; i < childs.size(); i++)
     {
-        childs[i].newChild(id, tagname);
+        childs[i].newChild(id, _tagname);
     }
 }
 

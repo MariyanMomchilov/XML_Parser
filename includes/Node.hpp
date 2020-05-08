@@ -33,6 +33,7 @@ public:
     Node getChild(int i) const;
     std::string getText() const;
     std::string getTagName() const;
+    std::string getAttrValue(const std::string &attr_name) const;
     void addChild(const Node &child);
     void appendText(const std::string &_text);
     void assignUniqueId(IDFactory &factory);

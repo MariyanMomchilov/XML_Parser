@@ -29,7 +29,7 @@ std::string LineParser::remove_whitespace(const std::string &line)
     return result;
 }
 
-std::vector<std::string> LineParser::file_content(std::ifstream &file)
+std::vector<std::string> LineParser::file_content(std::fstream &file)
 {
     std::vector<std::string> content;
     std::string line;
@@ -53,7 +53,6 @@ Tag LineParser::getOpenTag(const std::string &line)
         identificator += line[index];
         index++;
     }
-    std::cout << identificator << std::endl;
     attributes = LineParser::parseAttr(line, index);
     return Tag({identificator, attributes});
 }

@@ -53,7 +53,7 @@ TEST_CASE("TAGS processing")
 
 TEST_CASE("Vector Content")
 {
-    ifstream xmlfile("test.xml");
+    fstream xmlfile("test.xml");
     vector<string> content = LineParser::file_content(xmlfile);
     for (int i = 0; i < content.size(); i++)
     {
@@ -63,23 +63,32 @@ TEST_CASE("Vector Content")
 
 TEST_CASE("Generator, Node, XML Tree")
 {
-    ifstream xmlfile("test.xml");
+    fstream xmlfile("test.xml");
     Tree XMLtree = Generator::GenerateTree(xmlfile);
     xmlfile.close();
     XMLtree.select("7", "color");
     XMLtree.select("80", "color");
     XMLtree.set("7", "color", "blue");
     XMLtree.deleteAttr("7", "id");
-    XMLtree.deleteAttr("7", "color");
+    //XMLtree.deleteAttr("7", "color");
     ofstream xmlfileOUT("testOUT.xml");
-    XMLtree.newchild("1", "personTest");
+    XMLtree.newchild("12", "newchild");
     xmlfileOUT << XMLtree;
     xmlfileOUT.close();
+
+    string query = "person(address=\"USA\")/name";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "person[0]/address";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "person/name";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "person(@id)";
+    XpathQueries::getQuery(query, XMLtree);
 }
 
-/*TEST_CASE("SlashOperand")
+TEST_CASE("SlashOperand")
 {
-    ifstream xmlfile("test.xml");
+    fstream xmlfile("test.xml");
     Tree XMLtree = Generator::GenerateTree(xmlfile);
     xmlfile.close();
     XMLtree.select("7", "color");
@@ -107,17 +116,20 @@ TEST_CASE("Generator, Node, XML Tree")
             std::cout << newlist[k].getTagName() << '\n';
         }
     }
-}*/
+}
 
-TEST_CASE("QueryParser")
+TEST_CASE("QueryParser and Xpath")
 {
-    cout << '\n'
-         << "\n";
-    ifstream xmlfile("test.xml");
+    cout << '\n';
+    fstream xmlfile("testOUT.xml");
     Tree XMLtree = Generator::GenerateTree(xmlfile);
     string query = "person(address=\"USA\")/name";
     XpathQueries::getQuery(query, XMLtree);
-    query = "animal/lama";
+    query = "person[0]/address";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "person/name";
+    XpathQueries::getQuery(query, XMLtree);
+    query = "person(@id)";
     XpathQueries::getQuery(query, XMLtree);
 }
 

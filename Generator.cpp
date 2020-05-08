@@ -35,7 +35,7 @@ Node Generator::TreeGenerator(const std::vector<std::string> &content, size_t &i
     return node;
 }
 
-Tree Generator::GenerateTree(std::ifstream &in)
+Tree Generator::GenerateTree(std::fstream &in)
 {
     std::vector<std::string> content = LineParser::file_content(in);
     size_t i = 0;

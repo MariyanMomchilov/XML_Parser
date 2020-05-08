@@ -8,7 +8,7 @@
 class LineParser
 {
 public:
-    static std::vector<std::string> file_content(std::ifstream &file);
+    static std::vector<std::string> file_content(std::fstream &file);
     static std::string remove_whitespace(const std::string &line);
     static bool hasOpenTag(const std::string &line);
     static bool hasClosingTag(const std::string &line);
