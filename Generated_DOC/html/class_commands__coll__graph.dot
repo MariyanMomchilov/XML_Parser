@@ -1,0 +1,12 @@
+digraph "Commands"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Commands",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" XMLtree" ,fontname="Helvetica"];
+  Node2 [label="Tree",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_tree.html",tooltip="Класът описва кореновото дърво със всички XML елементи "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" root" ,fontname="Helvetica"];
+  Node3 [label="Node",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_node.html",tooltip="Класът описва елементите на XML документът. Всеки е елемент е част от кореново дърво ..."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" attribute_list" ,fontname="Helvetica"];
+  Node4 [label="AttributeList",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_attribute_list.html",tooltip="Класът съдържа атрибутите на даден елемент "];
+}
