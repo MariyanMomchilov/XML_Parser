@@ -4,7 +4,7 @@
         <name>John Smith</name>
         <address>USA</address>
     </person>
-    <person id="0" color="green">
+    <person id="0" color="green" vegan="true">
         <name>Ivan Petrov</name>
         <job>Programmer</job>
         <address>Bulgaria</address>
