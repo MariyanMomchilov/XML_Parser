@@ -1,23 +1,23 @@
 #define DOCTEST_CONFIG_IMPLEMENT
-#include "includes/doctest.h"
+#include "doctest.h"
 #include <iostream>
 #include <fstream>
-#include "includes/IDFactory.hpp"
+/*#include "includes/IDFactory.hpp"
 #include "includes/LineParser.hpp"
 #include "includes/Generator.hpp"
 #include "includes/Tree.hpp"
 #include "includes/SlashOperand.hpp"
-#include "includes/XpathQueries.hpp"
-/*#include "IDFactory.cpp"
+#include "includes/XpathQueries.hpp"*/
+#include "IDFactory.cpp"
 #include "LineParser.cpp"
 #include "Generator.cpp"
 #include "Tree.cpp"
 #include "Node.cpp"
 #include "SlashOperand.cpp"
-#include "XpathQueries.cpp"*/
+#include "XpathQueries.cpp"
 
 using namespace std;
-
+/*
 TEST_CASE("IDFactory")
 {
     IDFactory idfactory;
@@ -77,13 +77,13 @@ TEST_CASE("Generator, Node, XML Tree")
     xmlfileOUT.close();
 
     string query = "person(address=\"USA\")/name";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person[0]/address";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person/name";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person(@id)";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
 }
 
 TEST_CASE("SlashOperand")
@@ -117,20 +117,22 @@ TEST_CASE("SlashOperand")
         }
     }
 }
-
+*/
 TEST_CASE("QueryParser and Xpath")
 {
     cout << '\n';
-    fstream xmlfile("testOUT.xml");
+    fstream xmlfile("test.xml");
     Tree XMLtree = Generator::GenerateTree(xmlfile);
     string query = "person(address=\"USA\")/name";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person[0]/address";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person/name";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
     query = "person(@id)";
-    XpathQueries::getQuery(query, XMLtree);
+    XpathQueries::getQuery("1", query, XMLtree);
+    query = "person(name=\"John Smith\")/address";
+    XpathQueries::getQuery("1", query, XMLtree);
 }
 
 int main()

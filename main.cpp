@@ -1,5 +1,11 @@
 #include "includes/Commands.hpp"
-
+/*#include "IDFactory.cpp"
+#include "LineParser.cpp"
+#include "Generator.cpp"
+#include "Tree.cpp"
+#include "Node.cpp"
+#include "SlashOperand.cpp"
+#include "XpathQueries.cpp"*/
 int main()
 {
     Commands shell;

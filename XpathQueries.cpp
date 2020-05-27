@@ -89,6 +89,7 @@ std::vector<SlashOperand> XpathQueries::ParseQuery(std::string &query)
             }
         }
         q_start_index = q_stop_index + 1;
+        //std::cout << operand_name << " " << indexOperand << " " << equal_childname << " " << equal_text << '\n';
         operands.push_back(SlashOperand(operand_name, indexOperand, EqualOperand{equal_childname, equal_text}));
     }
     return operands;

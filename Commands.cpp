@@ -95,7 +95,7 @@ void Commands::_open(std::string &str, int &i)
     else if (parameter.length() != 0)
     {
         filename = parameter;
-        this->file.open(filename);
+        this->file.open(filename, std::ios::in | std::ios::out | std::ios::app);
         XMLtree = Generator::GenerateTree(file);
     }
     else
@@ -207,7 +207,8 @@ void Commands::process(std::string &command)
         else if (next_cmd == "xpath")
         {
             std::string id = getNextCMD(command, i);
-            std::string query = getNextCMD(command, i);
+            //std::string query = getNextCMD(command, i);
+            std::string query = command.substr(i + 1, command.size() - i + 1);
             XpathQueries::getQuery(id, query, XMLtree);
         }
     }

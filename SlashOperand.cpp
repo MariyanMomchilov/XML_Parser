@@ -66,9 +66,7 @@ bool SlashOperand::constraintsPassed(const Node &node) const
                 return true;
         }
     }
-    else
-    {
+    else if (eqOperand.child_name == "" && eqOperand.text == "")
         return true;
-    }
     return false;
 }

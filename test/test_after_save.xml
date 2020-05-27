@@ -1,0 +1,18 @@
+<people id="1">
+    People tag that nests persons
+    <person id="0">
+        <name id="2">John Smith</name>
+        <address id="3">USA</address>
+    </person>
+    <person id="0_2" color="pink">
+        <name id="4">Ivan Petrov</name>
+        <job id="5">Programmer</job>
+        <address id="6">Bulgaria</address>
+    </person>
+    <animal id="7">     
+        Animal tag nested in people
+        <lama id="1_2">
+            <name id="8">Alex</name>
+        </lama>
+    </animal>
+</people>

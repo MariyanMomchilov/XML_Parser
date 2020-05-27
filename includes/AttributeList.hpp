@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+/// Класът съдържа атрибутите на даден елемент
+
 struct AttributeList
 {
     std::vector<std::string> attr_names;

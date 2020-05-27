@@ -99,4 +99,5 @@ void Tree::children(const std::string &id) const
                       << " ";
         }
     }
+    std::cout << '\n';
 }
