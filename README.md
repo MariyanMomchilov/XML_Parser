@@ -2,7 +2,7 @@
 
 github: https://github.com/MariyanMomchilov/XML_Parser
 
-**Име: Мариян Момчилов, Компютърнои науки, група 2, ФН: 81955**
+**Име: Мариян Момчилов, Компютърни науки, група 2, ФН: 81955**
 
 ## Документация
 
@@ -20,7 +20,7 @@ github: https://github.com/MariyanMomchilov/XML_Parser
 
 Тестовете свързани с проекта се съдържат във файла TEST.cpp.
 
-Документацията по кода се съдържа в Generated_DOC/html/index.html.
+Документацията по кода е създадена с Doxygen и се съдържа в Generated_DOC/html/index.html.
 
 ## Инструкции за употреба
 
